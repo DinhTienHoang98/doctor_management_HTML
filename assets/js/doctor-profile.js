@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log("hello")
     init();
 });
 
@@ -13,6 +12,7 @@ function init() {
 }
 
 function getById(id) {
+    console.log("dadas")
     // Call Web API to get a list
     $.ajax({
         url: `http://localhost:4000/doctor/${id}`,

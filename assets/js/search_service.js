@@ -1,100 +1,8 @@
 $(document).ready(function () {
-    console.log("ccc")
     getAll();
 });
 
 var selectedRow = null;
-
-// function onDelete(id) {
-//     console.log(id);
-//     // Call Web API to get a list
-//     $.ajax({
-//         url: `http://localhost:3000/api/employee/${id}`,
-//         type: "DELETE",
-//         success: function () {
-//             getAll()
-//         },
-
-//         error: function (request, message, error) {
-//             handleException(request, message, error);
-//         },
-//     });
-// }
-
-// function onEdit(td) {
-//     console.log(td);
-//     selectedRow = td.parentElement.parentElement;
-//     console.log(selectedRow);
-//     document.getElementById("id").value = selectedRow.cells[0].innerHTML;
-//     document.getElementById("fullName").value = selectedRow.cells[1].innerHTML;
-//     document.getElementById("email").value = selectedRow.cells[2].innerHTML;
-//     document.getElementById("salary").value = selectedRow.cells[3].innerHTML;
-//     document.getElementById("city").value = selectedRow.cells[4].innerHTML;
-// }
-
-// function readFormData() {
-//     var formData = {};
-//     if (selectedRow != null) {
-//         formData["id"] = document.getElementById("id").value;
-//     }
-//     formData["fullName"] = document.getElementById("fullName").value;
-//     formData["emailId"] = document.getElementById("email").value;
-//     formData["salary"] = document.getElementById("salary").value;
-//     formData["city"] = document.getElementById("city").value;
-//     console.log(formData);
-//     return formData;
-// }
-
-
-// function onFormSubmit() {
-//     var formData = readFormData();
-//     if (selectedRow == null) {
-//         insertNewRecord(formData);
-//     } else {
-//         updateRecord(formData);
-//     }
-//     resetForm();
-// }
-
-// function resetForm() {
-//     document.getElementById("fullName").value = "";
-//     document.getElementById("email").value = "";
-//     document.getElementById("salary").value = "";
-//     document.getElementById("city").value = "";
-//     selectedRow = null;
-//     getAll();
-// }
-
-// function insertNewRecord() {
-//     $.ajax({
-//         url: "http://localhost:3000/api/employee/post",
-//         type: "POST",
-//         data: JSON.stringify(readFormData()),
-//         contentType: "application/json; charset=utf-8",
-//         success: function () {
-//             getAll()
-//         },
-//         error: function (request, message, error) {
-//             handleException(request, message, error);
-//         },
-//     });
-// }
-
-// function updateRecord() {
-//     $.ajax({
-//         url: "http://localhost:3000/api/employee/update",
-//         type: "PUT",
-//         data: JSON.stringify(readFormData()),
-//         contentType: "application/json; charset=utf-8",
-//         success: function () {
-//             getAll()
-//         },
-//         error: function (request, message, error) {
-//             handleException(request, message, error);
-//         },
-//     });
-// }
-
 
 function getAll() {
     // Call Web API to get a list
@@ -138,7 +46,6 @@ function getSpecializationIconFromCode(specialization_code) {
 }
 
 function renderTable(e) {
-    console.log(e)
     var ret =
         `
          <div class="card">
@@ -203,7 +110,7 @@ function renderTable(e) {
                          </ul>
                      </div>
                      <div class="clinic-booking">
-                         <a class="view-pro-btn" href="doctor-profile.html" onClick = "onClick(${e.id})">View Profile</a>
+                         <a class="view-pro-btn" href="/doctor-profile.html" onClick =" ${viewProfile(event, e)}">View Profile</a>
                          <a class="apt-btn" href="booking.html">Book Appointment</a>
                      </div>
                  </div>
@@ -214,12 +121,11 @@ function renderTable(e) {
     return ret;
 }
 
-function onClick(doctor_id) {
-    console.log(doctor_id)
-    if (doctor_id == null) {
-        alert("Thông tin Bác sĩ không tồn tại")
-    }
-    localStorage.setItem("currentDoctor", doctor_id)
+function viewProfile(event, e) {
+    console.log(">>>>>>>>>>>>")
+    localStorage.setItem("currentDoctor", e?.id)
+    // window.location.href = "doctor-profile.html";
+    event.stopPropagation();
 }
 
 function handleException(request, message, error) {
